@@ -1,27 +1,45 @@
+# Time import ---
+
 from time import sleep
 
-def tijd():
-    sleep(2)
+# Variabelen --- 
 
-def error():
+Herhalen = True
+
+# User-Defined functions ---
+
+def showIntro():
+    print('Welkom bij Papi Gelato je mag alle smaken kiezen zolang het maar vanille ijs is.')
+
+def pause():
+    sleep(1.5)
+
+def showError():
     print('Sorry, dat snap ik niet...')
 
-def stap2():
-   bakje = input('Wilt u deze '+ str(Bolletjes) +' in A) een hoorntje of B) een bakje? ').upper()
-   if bakje == 'A':
-       Doorgaan = input('Hier is uw hoorntje met '+ str(Bolletjes) +' bolletje(s). Wilt u nog meer bestellen? (Y/N) ')
-   elif bakje == 'B':
-       Doorgaan = input('Hier is uw bakje met '+ str(Bolletjes) +' bolletje(s). Wilt u nog meer bestellen? (Y/N) ')
-   else:
-       error()
-    
+def showErrorBakje():
+    print('Sorry, zulke grote bakken hebben we niet.')
 
-        
 # Code start ---
-print('Welkom bij Papi Gelato je mag alle smaken kiezen zolang het maar vanille ijs is')
-tijd()
-Bolletjes = int(input('Hoeveel bolletjes wilt u? '))
-if Bolletjes >= 1 or 3 <= Bolletjes:
-    stap2()
-else:
-    print('fout')
+showIntro()
+pause()
+
+while Herhalen == True:
+    Bolletjes = int(input('Hoeveel bolletjes wilt u? '))
+    if Bolletjes >= 1 and Bolletjes <= 3:
+        Herhalen = False
+        AantalBolletjes = Bolletjes
+        Bakje = input('Wilt u deze '+ str(Bolletjes) +' bolletje(s) in A) een hoorntje of B) een bakje? ')
+        if Bakje.upper() == 'A':
+            print('test')
+        elif Bakje.upper() == 'B':
+            print('test2')
+    elif Bolletjes >= 4 and Bolletjes <= 8:
+        AantalBolletjes = Bolletjes
+        print('Dan krijgt u van mij een bakje met '+ str(Bolletjes) +' bolletjes.')
+        Herhalen = False
+    elif Bolletjes > 8:
+        showErrorBakje()
+    elif Bolletjes == 0:
+        showError()
+
