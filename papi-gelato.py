@@ -6,12 +6,12 @@ from time import sleep
 
 Herhalen = True
 Bolsmaak = 1
-Smaken = ["A", "C", "M", "V", "a", "c", "m", "v" "Aardbei", "Chocolade", "Munt", "Vanille", "aardbei", "chocolade", "munt", "vanille"]
+Smaken = ["A", "C", "M", "V", "a", "c", "m", "v", "Aardbei", "Chocolade", "Munt", "Vanille", "aardbei", "chocolade", "munt", "vanille"]
 
 # User-Defined functions ---
 
 def showIntro():
-    print('Welkom bij Papi Gelato je mag alle smaken kiezen zolang het maar vanille ijs is.')
+    print('Welkom bij Papi Gelato')
 
 def pause():
     sleep(1.5)
