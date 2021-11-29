@@ -6,7 +6,7 @@ from time import sleep
 ToppingBool = True
 Topping = 1
 Herhalen = True
-Herhalen2 = True
+MeerBestellen = True
 Bolsmaak = 1
 Bolsmaak2 = 1
 AantalBakjes = 0
@@ -17,6 +17,7 @@ HorrentjePrijs = 1.25
 BakjePrijs = 0.75
 TotaalBol = 0
 TotaalBak = 0
+TotaalTopping = 0
 TotaalHoorntje = 0
 Slagroom = 0.50
 Sprinkels = 0.30
@@ -40,7 +41,35 @@ def showError():
 def showErrorBakje():
     print('Sorry, zulke grote bakken hebben we niet.')
 
+def topping():
+    global AantalSlagroom, AantalSprinkels
+    while ToppingBool:
+        Topping = 0
 
+        ToppingVraag = input('Wat voor topping wilt u: A) Geen, B) Slagroom, C) Sprinkels of D) Caramel Saus? ').upper()
+        if ToppingVraag == "A" or ToppingVraag == "Geen":
+            Topping = 0
+        elif ToppingVraag == "B" or ToppingVraag == "Slagroom":
+            AantalSlagroom += Slagroom
+            Topping += 1
+        elif ToppingVraag == "C" or ToppingVraag == "Sprinkels":
+            AantalSprinkels += Sprinkels
+            Topping += 1
+        elif ToppingVraag == "D" or ToppingVraag == "Caramel saus" or ToppingVraag == "Caramel":
+            global Bakje
+            if Bakje == "A" or Bakje == "Hoorntje":
+                global AantalCaramel
+                AantalCaramel += CaramelSausHorrentje
+                Topping += 1
+            if Bakje == "B" or ToppingVraag == "Bakje":
+                AantalCaramel += CaramelSausBakje
+                Topping += 1
+
+
+        global TotaalTopping
+        TotaalTopping = AantalCaramel + AantalSlagroom + (AantalSprinkels * AantalBolletjes)
+        return Topping and TotaalTopping and ToppingVraag
+        
 # Code start ---
 showIntro()
 pause()
@@ -60,50 +89,43 @@ while Herhalen:
                 Bolsmaak += 1
             else:
                 showError()
-
-        # Hier wordt de klant gevraagd of hij een bakje of een hoorntje wilt en daarna wordt de code afgesloten of, als de klant het wilt, opnieuw 'afgespeeld'
-        Topping = 1
-        while Topping <= AantalBolletjes:
-            ToppingVraag = input('Wat voor topping wilt u: A) Geen, B) Slagroom, C) Sprinkels of D) Caramel Saus? ').upper()
-            if ToppingVraag == "A" or "Geen":
-                Topping = 0
-                break
-            elif ToppingVraag == "B" or "Slagroom":
-                Topping += 1
-                AantalSlagroom += 1
-            elif ToppingVraag == "C" or "Sprinkels":
-                Topping += 1
-                AantalSprinkels += AantalBolletjes
-            elif ToppingVraag == "D" or "Caramel saus" or "Caramel":
-                Topping += 1
-            else:
-                showError()
+        
+        Bakje = input('Wilt u deze '+ str(AantalBolletjes) +' bolletje(s) in A) een hoorntje of B) een bakje? ').upper()
 
     
-        Bakje = input('Wilt u deze '+ str(AantalBolletjes) +' bolletje(s) in A) een hoorntje of B) een bakje? ').upper()
+        topping()
+
+        
+        # Hier wordt de klant gevraagd of hij een bakje of een hoorntje wilt en daarna wordt de code afgesloten of, als de klant het wilt, opnieuw 'afgespeeld'
         if Bakje.upper() == 'A':
             AantalHorrentjes += 1
-            Doorgaan = input('Hier is uw hoorntje met '+ str(AantalBolletjes) +' bolletje(s). Wilt u nog meer bestellen? (Y/N) ').upper()
-            if Doorgaan == 'Y':
-                Herhalen = True
-            elif Doorgaan == 'N':
-                print('Bedankt en tot ziens!') 
-                Herhalen = False
-            else:
-                showError()
+            while MeerBestellen:
+                Doorgaan = input('Hier is uw hoorntje met '+ str(AantalBolletjes) +' bolletje(s). Wilt u nog meer bestellen? (Y/N) ').upper()
+                if Doorgaan == 'Y':
+                    Herhalen = True
+                    MeerBestellen = False
+                elif Doorgaan == 'N':
+                    print('Bedankt en tot ziens!') 
+                    Herhalen = False
+                    MeerBestellen = False
+                else:
+                    showError()
+                    MeerBestellen = True
+                
         elif Bakje.upper() == 'B':
             AantalBakjes += 1
-            Doorgaan = input('Hier is uw bakje met '+ str(AantalBolletjes) +' bolletje(s). Wilt u nog meer bestellen? (Y/N) ').upper()
-            if Doorgaan == 'Y':
-                Herhalen = True
-            elif Doorgaan == 'N':
-                Herhalen = False
-                print('Bedankt en tot ziens!')
+            while MeerBestellen:
+                Doorgaan = input('Hier is uw bakje met '+ str(AantalBolletjes) +' bolletje(s). Wilt u nog meer bestellen? (Y/N) ').upper()
+                if Doorgaan == 'Y':
+                    Herhalen = True
+                elif Doorgaan == 'N':
+                    Herhalen = False
+                    print('Bedankt en tot ziens!')
+                else:
+                    showError()
+                    Herhalen = True
             else:
                 showError()
-                Herhalen = True
-        else:
-            showError()
 
 
     # Als de klant tussen de 4 of 8 bolletjes wilt
@@ -111,34 +133,34 @@ while Herhalen:
         AantalBakjes += 1
         Bolsmaak = 1
         print('Dan krijgt u van mij een bakje met '+ str(AantalBolletjes) +' bolletjes.')
+        Bakje = "B" or "Bakje"
         while Bolsmaak <= AantalBolletjes:
             Smaak = input('Welke smaak wilt u voor bolletje nummer '+ str(Bolsmaak) +'? A) Aardbei, C) Chocolade, M) Munt of V) Vanille? ')
             if Smaak in Smaken:
                 Bolsmaak += 1
-        Topping = 1
-        while Topping <= AantalBolletjes:
-            ToppingVraag = input('Wat voor topping wilt u: A) Geen, B) Slagroom, C) Sprinkels of D) Caramel Saus? ').upper()
-            if ToppingVraag == "A" or "Geen":
-                Topping = 0
-                break
-            elif ToppingVraag == "B" or "Slagroom":
-                Topping += 1
-                AantalSlagroom += 1
-            elif ToppingVraag == "C" or "Sprinkels":
-                Topping += 1
-                AantalSprinkels += AantalBolletjes
-            elif ToppingVraag == "D" or "Caramel saus" or "Caramel":
-                Topping += 1
-        Doorgaan = input('Hier is uw bakje met '+ str(AantalBolletjes) +' bolletje(s). Wilt u nog meer bestellen? (Y/N) ').upper()
-        if Doorgaan == 'Y':
-            Herhalen = True
-        elif Doorgaan == 'N':
-            print('Bedankt en tot ziens!')
-            Herhalen = False
+            else:
+                showError()
+                
+        topping()
+
+        while MeerBestellen:
+            Doorgaan = input('Hier is uw bakje met '+ str(AantalBolletjes) +' bolletje(s). Wilt u nog meer bestellen? (Y/N) ').upper()
+            if Doorgaan == 'Y':
+                Herhalen = True
+                MeerBestellen = False
+            elif Doorgaan == 'N':
+                print('Bedankt en tot ziens!')
+                Herhalen = False
+                MeerBestellen = False
+            else:
+                showError()
+                MeerBestellen = True
+
 
     
     # Als de klant meer dan 8 bolletjes wilt, dan krijgt de klant een foutmelding te zien
     elif AantalBolletjes > 8:
+        AantalBolletjes = 0
         showErrorBakje()
         Herhalen = True
     
@@ -150,30 +172,28 @@ while Herhalen:
         showError()
 
     TotaalBollen += AantalBolletjes
-if Herhalen == False:
-    TotaalBol = TotaalBollen * BolletjePrijs
-    TotaalHoorntje = AantalHorrentjes * HorrentjePrijs
-    TotaalBak = AantalBakjes * BakjePrijs
-    TotaalSlagroom = Slagroom * AantalSlagroom
-    TotaalBedrag = TotaalBol + TotaalHoorntje + TotaalBak
+
+Topping += Topping
+TotaalBol = TotaalBollen * BolletjePrijs
+TotaalHoorntje = AantalHorrentjes * HorrentjePrijs
+TotaalBak = AantalBakjes * BakjePrijs
+TotaalBedrag = TotaalBol + TotaalHoorntje + TotaalBak + TotaalTopping
+
+
 print('--------------[Papi Gelato]--------------')
 print()
 if AantalBolletjes >= 1:
     print('Bolletjes        '+ str(TotaalBollen) +' x €1,10 = €'+ str(round(TotaalBol, 3)))
-else:
-    print()
+
 if AantalHorrentjes >= 1:
     print('Horrentje        '+ str(AantalHorrentjes) +' x €1,25 = €' + str(round(TotaalHoorntje, 3)))
-else:
-    print()
+
 if AantalBakjes >= 1:
     print('Bakje            '+ str(AantalBakjes) +' x €0,75 = €'+ str(TotaalBak))
-else:
-    print()
-if AantalSlagroom >= 1:
-    print('Slagroom            '+ str(AantalSlagroom) +' x €0,50 = €'+ str(TotaalSlagroom))
-else:
-    print()
+
+if Topping >= 1:
+    print('Topping          '+ str(Topping) +' x €'+ str(TotaalTopping) +' = €'+ str(round(TotaalTopping, 3)))
+
 
 print('                             ----- +')
 print('Totaal:                      €'+ str(round(TotaalBedrag, 3)))
