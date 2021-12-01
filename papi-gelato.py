@@ -35,7 +35,7 @@ def pause():
     sleep(1.5)
 
 def showError():
-    print('Sorry, dat snap ik niet...')
+    print('Sorry, dat is geen optie die we aanbieden...')
 
 def showErrorBakje():
     print('Sorry, zulke grote bakken hebben we niet.')
@@ -226,7 +226,7 @@ if ZakelijkBool == True:
     print()
     print('--------------[Papi Gelato]--------------')
     print()
-    print('Liter       '+ str(Liter) +' x €9.80 = €'+ str(round(TotaalBedragZakelijk, 3)))
+    print('Liter       '+ str(Liter) +' x €9.80 = €'+ str(round(TotaalBedragZakelijk, 4)))
     print('                        ------ +')
-    print('Totaal                 = €'+ str(TotaalBedragZakelijk))
+    print('Totaal                 = €'+ str(round(TotaalBedragZakelijk, 4)))
     print('BTW (9%)               = €'+ str(BTW))
