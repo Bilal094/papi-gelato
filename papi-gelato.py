@@ -9,7 +9,7 @@ Herhalen = True
 MeerBestellen = True
 Bolsmaak = 1
 Smaken = ["A", "C", "M", "V", "a", "c", "m", "v", "Aardbei", "Chocolade", "Munt", "Vanille", "aardbei", "chocolade", "munt", "vanille"]
-BolletjePrijs = 1.10
+BolletjePrijs = 0.95
 HorrentjePrijs = 1.25
 BakjePrijs = 0.75
 Slagroom = 0.50
@@ -207,7 +207,7 @@ if ZakelijkBool == False:
     print('--------------[Papi Gelato]--------------')
     print()
     if AantalBolletjes >= 1:
-        print('Bolletjes        '+ str(AlleBolletjes) +' x €1,10 = €'+ str(round(TotaalBol, 3)))
+        print('Bolletjes        '+ str(AlleBolletjes) +' x €0.95 = €'+ str(round(TotaalBol, 3)))
 
     if AantalHoorntjes >= 1:
         print('Horrentje        '+ str(AantalHoorntjes) +' x €1,25 = €' + str(round(TotaalHoorntje, 3)))
