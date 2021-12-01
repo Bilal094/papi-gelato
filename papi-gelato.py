@@ -67,7 +67,6 @@ def topping(topping):
         if Bakje == "B" or Bakje == "Bakje":
             AantalCaramel += CaramelBakje
         Topping += 1
-    return AantalSlagroom or AantalSprinkels or AantalCaramel
 
 
 
