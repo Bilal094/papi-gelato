@@ -191,7 +191,7 @@ if Herhalen == False:
 # Zakelijk
 if ZakelijkBool == True:
     TotaalBedragZakelijk = Liter * LiterPrijs
-    BTW = TotaalBedragZakelijk * 0.09
+    BTW = TotaalBedragZakelijk * 0.06
 
 if ZakelijkBool == False:
     print()
@@ -220,4 +220,4 @@ if ZakelijkBool == True:
     print('Liter       '+ str(Liter) +' x €9.80 = €'+ str(round(TotaalBedragZakelijk, 3)))
     print('                        ------ +')
     print('Totaal                 = €'+ str(TotaalBedragZakelijk))
-    print('BTW (9%)               = €'+ str(BTW))
+    print('BTW (6%)               = €'+ str(BTW))
